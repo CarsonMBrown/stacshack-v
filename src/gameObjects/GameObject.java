@@ -47,6 +47,7 @@ public abstract class GameObject {
         this.image = new Image(imgPath);
         this.imagePath = imgPath;
     }
+
     public void setImage(Image image) {
         this.image = image;
     }
@@ -57,5 +58,13 @@ public abstract class GameObject {
 
     public int getVelocityY() {
         return (int) vY;
+    }
+
+    public int getX() {
+        return (int) x;
+    }
+
+    public int getY() {
+        return (int) y;
     }
 }

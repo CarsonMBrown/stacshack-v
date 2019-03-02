@@ -27,7 +27,7 @@ public class Game {
     // Called in updateScreen
     public void updatePosition(ArrayList<String> input) {
         player.handleInput(input);
-        
+
     }
 
     

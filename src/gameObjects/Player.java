@@ -6,13 +6,17 @@ import java.util.HashMap;
 import javafx.scene.image.Image;
 
 public class Player extends GameObject {
-    private static final int MAX_VELOCITY_X = 10;
-    private static final int MAX_VELOCITY_Y = 10;
+    private static final int MAX_VELOCITY_AIR_X = 20;
+    private static final int MAX_VELOCITY_AIR_Y = 20;
+    private static final int MAX_VELOCITY_X = 20;
+    private static final int MAX_VELOCITY_Y = 20;
 
-    boolean isInAir = false;
+    private boolean isInAir = true;
+
+    private double distanceTraveled = 0;
 
     private HashMap<String, Image> images = new HashMap<String, Image>();
-    private String currentImage = "idle";
+//    private String currentImage = "idle";
 
     public Player() {
         super(100, 100, 50, 50, "assets/player/idle.png");
@@ -27,28 +31,65 @@ public class Player extends GameObject {
     public void handleInput(ArrayList<String> input) {
         if (input.contains("LEFT")) {
             addVelocity(-1, 0);
-        }
-
-        if (input.contains("RIGHT")) {
+        } else if (input.contains("RIGHT")) {
             addVelocity(1, 0);
+        } else if (input.contains("DOWN")) {
+            addVelocity(0, -1);
+        } else if (input.contains("UP")) {
+            addVelocity(0, 1);
         }
 
-        if (!isInAir) {
-            setVelocity(Math.min(getVelocityX(), MAX_VELOCITY_X), Math.min(getVelocityY(), MAX_VELOCITY_Y));
+        if (isInAir) {
+            if (getVelocityX() > 18) {
+                setVelocity(Math.min(getVelocityX(), MAX_VELOCITY_AIR_X), getVelocityY());
+            } else if (getVelocityX() < 18) {
+                setVelocity(Math.max(getVelocityX(), -MAX_VELOCITY_AIR_X), getVelocityY());
+            }
+            if (getVelocityY() > 18) {
+                setVelocity(getVelocityX(), Math.min(getVelocityY(), MAX_VELOCITY_AIR_Y));
+            } else if (getVelocityX() < 18) {
+                setVelocity(getVelocityX(), Math.max(getVelocityY(), -MAX_VELOCITY_AIR_Y));
+            }
+        } else {
+            if (getVelocityX() > 9) {
+                setVelocity(Math.min(getVelocityX(), MAX_VELOCITY_X), 0);
+            } else if (getVelocityY() < -9) {
+                setVelocity(Math.max(getVelocityX(), -MAX_VELOCITY_X), 0);
+            }
         }
+        distanceTraveled += Math.sqrt(Math.pow(getVelocityX(), 2) + Math.pow(getVelocityY(), 2));
     }
 
     public void animate(double t) {
         final double duration = 0.7d / getVelocityX();
 
-        if (!isInAir) {
+        if (isInAir) {
+            if (getVelocityY() > 0) {
+                setImage(images.get("rise"));
+            } else {
+                setImage(images.get("fall"));
+            }
+        } else {
             if (getVelocityX() == 0) {
                 setImage(images.get("idle"));
             } else {
                 Image[] walkImages = new Image[2];
                 int imageIndex = (int) ((t % (walkImages.length * duration)) / duration);
-                setImage(images.get("run" + imageIndex));
+                setImage(images.get("run" + Math.abs(imageIndex)));
             }
         }
+
+        if (getVelocityX() == 0 && getVelocityY() == 0) {
+            setImage(images.get("idle"));
+        }
+    }
+
+    @Override
+    public void update(double t) {
+        addVelocity(0, .1);
+    }
+
+    public double getDistanceTraveled() {
+        return distanceTraveled;
     }
 }
