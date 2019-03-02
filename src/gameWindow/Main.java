@@ -41,8 +41,7 @@ public class Main extends Application {
         ArrayList<String> input = new ArrayList<>();
 
         Game game = new Game();
-        
-        
+
         // These add/remove pressed buttons from the input list.
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -62,36 +61,34 @@ public class Main extends Application {
                 input.remove(code);
             }
         });
-        
+
         new AnimationTimer() {
             @Override
             public void handle(long currentNanoTime) {
                 // Time to base everything on.
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;
-                for (String i : input) {
-                	System.out.println(i);
-                }
                 // Clears canvas
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-                br.moveBackGround(3);
-                
+                br.moveBackGround(game.getPlayer().getVelocityX());
 
                 // TODO add game logic here!
-                
-                
-                //Handles input vector changing
+
+                // Handles input vector changing
                 game.updatePosition(input);
-                //Renders
+                // Renders
                 game.updateScreen(t);
 
                 // TODO Draw everything here!
                 br.drawBackGround(gc);
                 game.renderGame(gc);
+                
+                input.clear();
             }
         }.start();
 
         theStage.show();
+
     }
 
     public static void main(String[] args) {
