@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 public abstract class GameObject {
     private double x, y, vX, vY, width, height;
     private Image image;
+    private String imagePath;
 
     public GameObject(int x, int y, int width, int height, String imgPath) {
         this.x = x;
@@ -44,6 +45,10 @@ public abstract class GameObject {
 
     public void setImage(String imgPath) {
         this.image = new Image(imgPath);
+        this.imagePath = imgPath;
+    }
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public int getVelocityX() {

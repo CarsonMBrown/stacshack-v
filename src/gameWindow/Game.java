@@ -35,8 +35,9 @@ public class Game {
         objects.add(o);
     }
 
-    public void renderGame(GraphicsContext gc) {
+    public void renderGame(GraphicsContext gc, double t) {
         player.render(gc);
+        player.animate(t);
         for (GameObject o : objects) {
             o.render(gc);
         }
