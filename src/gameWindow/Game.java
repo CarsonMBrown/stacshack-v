@@ -15,6 +15,8 @@ public class Game {
     private Player player;
     private ArrayList<Block> blocks;
     private static int displacement;
+    private int score = 0;
+    private static final double SCORE_MULTIPLIER = 1.0 / 2000;
 
     public Game() {
         objects = new ArrayList<>();
@@ -48,7 +50,7 @@ public class Game {
             	Generator.addCol(this, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
             }
         }
-        
+        player.update(t);
     }
 
     public void addObject(GameObject o) {
@@ -65,8 +67,10 @@ public class Game {
         player.render(gc);
         player.animate(t);
         for (GameObject o : objects) {
+        	System.out.println("AAAAA");
             o.render(gc);
         }
+        gc.fillText(Long.toString(Math.round((player.getDistanceTraveled() * SCORE_MULTIPLIER))), 100, 100);
         for (Block b : blocks) {
         	b.render(gc);
         }
