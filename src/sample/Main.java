@@ -21,7 +21,7 @@ public class Main extends Application {
 		Scene theScene = new Scene(root);
 		theStage.setScene(theScene);
 
-		Canvas canvas = new Canvas(400, 200);
+		Canvas canvas = new Canvas(1000, 1000);
 		root.getChildren().add(canvas);
 
 		GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -34,7 +34,7 @@ public class Main extends Application {
 		gc.fillText("Hello, World!", 60, 50);
 		gc.strokeText("Hello, World!", 60, 50);
 
-		Image earth = new Image("earth.png");
+		Image earth = new Image("doot.jpeg");
 		gc.drawImage(earth, 180, 100);
 
 		theStage.show();
