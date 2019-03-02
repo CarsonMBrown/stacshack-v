@@ -71,6 +71,7 @@ public class Game {
         gc.fillText(Long.toString(Math.round((player.getDistanceTraveled() * SCORE_MULTIPLIER))), 100, 100);
         for (Block b : blocks) {
             b.render(gc);
+            gc.fillRect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
         }
     }
 

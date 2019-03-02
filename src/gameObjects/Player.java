@@ -65,9 +65,9 @@ public class Player extends GameObject {
 
         if (isInAir) {
             if (getVelocityY() > 0) {
-                setImage(images.get("rise"));
-            } else {
                 setImage(images.get("fall"));
+            } else {
+                setImage(images.get("rise"));
             }
         } else {
             if (getVelocityX() == 0) {

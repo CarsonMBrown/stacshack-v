@@ -2,10 +2,9 @@ package Terrain;
 
 import gameObjects.Block;
 import gameWindow.Game;
-import javafx.scene.canvas.GraphicsContext;
 
 public class Generator {
-	public static final int BLOCK_SIZE = 10;
+	public static final int BLOCK_SIZE = 50;
 	private static int colNumber = 0;
 	
 	

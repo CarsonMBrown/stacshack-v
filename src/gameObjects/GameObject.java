@@ -14,7 +14,7 @@ public abstract class GameObject {
         this.y = y;
         this.width = width;
         this.height = height;
-        image = new Image(imgPath);
+        image = new Image(imgPath, width, height, false, false);
     }
 
     public void update(double t) {
