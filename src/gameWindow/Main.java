@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -63,6 +64,12 @@ public class Main extends Application {
                 input.remove(code);
             }
         });
+        scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+            }
+        });
 
         new AnimationTimer() {
             long nanoTimeLastFrame = 0;
@@ -96,7 +103,6 @@ public class Main extends Application {
         }.start();
 
         theStage.show();
-
     }
 
     public static void main(String[] args) {
