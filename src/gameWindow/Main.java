@@ -35,13 +35,14 @@ public class Main extends Application {
         // Font timesNewRoman = Font.font("Times New Roman", FontWeight.BOLD, 48);
 
         BackgroundRenderer br = new BackgroundRenderer();
-        Player player = new Player();
 
         // Time program was started at
         final long startNanoTime = System.nanoTime();
 
         ArrayList<String> input = new ArrayList<>();
 
+        Game game = new Game();
+        
         new AnimationTimer() {
             @Override
             public void handle(long currentNanoTime) {
@@ -74,9 +75,15 @@ public class Main extends Application {
                         input.remove(code);
                     }
                 });
+                
+                //Handles input vector changing
+                game.updatePosition(input);
+                //Renders
+                game.updateScreen(t);
 
                 // TODO Draw everything here!
                 br.drawBackGround(gc);
+                game.renderGame(gc);
             }
         }.start();
 
