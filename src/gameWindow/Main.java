@@ -14,8 +14,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-	public final static int SCREEN_WIDTH = 1000;
+    public final static int SCREEN_WIDTH = 1000;
     public final static int SCREEN_HEIGHT = 500;
+
     @Override
     public void start(Stage theStage) throws Exception {
         theStage.setTitle("Cave Adventure");
@@ -23,9 +24,7 @@ public class Main extends Application {
         Group root = new Group();
         Scene scene = new Scene(root);
         theStage.setScene(scene);
-        
-        
-        
+
         Canvas canvas = new Canvas(1000, 500);
         root.getChildren().add(canvas);
 
@@ -66,14 +65,18 @@ public class Main extends Application {
         });
 
         new AnimationTimer() {
+            long nanoTimeLastFrame = 0;
+
             @Override
             public void handle(long currentNanoTime) {
                 // Time to base everything on.
-                double t = (currentNanoTime - startNanoTime) / 1000000000.0;
+                double t = (currentNanoTime - nanoTimeLastFrame) / 10000000.0;
+                nanoTimeLastFrame = currentNanoTime;
+
                 // Clears canvas
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-                br.moveBackGround(game.getPlayer().getVelocityX());
+                br.moveBackGround(game.getPlayer().getVelocityX(), t);
 
                 // TODO add game logic here!
 
@@ -82,10 +85,12 @@ public class Main extends Application {
                 // Renders
                 game.updateScreen(t);
 
+                game.calculateCollisions();
+
                 // TODO Draw everything here!
                 br.drawBackGround(gc);
                 game.renderGame(gc, t);
-                
+
                 input.clear();
             }
         }.start();

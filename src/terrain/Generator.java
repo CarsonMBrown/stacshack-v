@@ -4,7 +4,7 @@ import gameObjects.Block;
 import gameWindow.Game;
 
 public class Generator {
-	public static final int BLOCK_SIZE = 10;
+	public static final int BLOCK_SIZE = 8;
 	private static int colNumber = 0;
 	
 	

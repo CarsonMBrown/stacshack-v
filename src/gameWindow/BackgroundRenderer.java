@@ -16,9 +16,9 @@ public class BackgroundRenderer {
         }
     }
 
-    public void moveBackGround(int vX) {
+    public void moveBackGround(int vX, double t) {
         for (int i = 0; i < 4; i++) {
-            backgroundLocationX.set(i, (backgroundLocationX.get(i) - .02 * vX * Math.pow(2, i)) % backgroundImages.get(i).getWidth());
+            backgroundLocationX.set(i, (backgroundLocationX.get(i) - t * vX * Math.pow(2, i)) % backgroundImages.get(i).getWidth());
         }
     }
 
