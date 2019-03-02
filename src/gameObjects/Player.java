@@ -7,9 +7,9 @@ import javafx.scene.image.Image;
 
 public class Player extends GameObject {
     private static final int MAX_VELOCITY_AIR_X = 20;
-    private static final int MAX_VELOCITY_AIR_Y = 20;
+    private static final int MAX_VELOCITY_AIR_Y = 5;
     private static final int MAX_VELOCITY_X = 20;
-    private static final int MAX_VELOCITY_Y = 20;
+    private static final int MAX_VELOCITY_Y = 5;
 
     private boolean isInAir = true;
 
@@ -34,20 +34,20 @@ public class Player extends GameObject {
         } else if (input.contains("RIGHT")) {
             addVelocity(1, 0);
         } else if (input.contains("DOWN")) {
-            addVelocity(0, -1);
-        } else if (input.contains("UP")) {
             addVelocity(0, 1);
+        } else if (input.contains("UP")) {
+            addVelocity(0, -1);
         }
 
         if (isInAir) {
             if (getVelocityX() > 18) {
                 setVelocity(Math.min(getVelocityX(), MAX_VELOCITY_AIR_X), getVelocityY());
-            } else if (getVelocityX() < 18) {
+            } else if (getVelocityX() < -18) {
                 setVelocity(Math.max(getVelocityX(), -MAX_VELOCITY_AIR_X), getVelocityY());
             }
             if (getVelocityY() > 18) {
                 setVelocity(getVelocityX(), Math.min(getVelocityY(), MAX_VELOCITY_AIR_Y));
-            } else if (getVelocityX() < 18) {
+            } else if (getVelocityX() < -18) {
                 setVelocity(getVelocityX(), Math.max(getVelocityY(), -MAX_VELOCITY_AIR_Y));
             }
         } else {
@@ -86,10 +86,15 @@ public class Player extends GameObject {
 
     @Override
     public void update(double t) {
-        addVelocity(0, .1);
+        addVelocity(0, .05);
+        setY(getY() + t * getVelocityY());
     }
 
     public double getDistanceTraveled() {
         return distanceTraveled;
+    }
+
+    public void printVelocity() {
+        System.out.println(getVelocityX() + " | " + getVelocityY());
     }
 }

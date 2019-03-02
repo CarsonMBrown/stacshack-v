@@ -14,7 +14,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-
+	public final static int SCREEN_WIDTH = 1000;
+    public final static int SCREEN_HEIGHT = 500;
     @Override
     public void start(Stage theStage) throws Exception {
         theStage.setTitle("Cave Adventure");
@@ -22,7 +23,9 @@ public class Main extends Application {
         Group root = new Group();
         Scene scene = new Scene(root);
         theStage.setScene(scene);
-
+        
+        
+        
         Canvas canvas = new Canvas(1000, 500);
         root.getChildren().add(canvas);
 
