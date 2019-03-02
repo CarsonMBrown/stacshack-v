@@ -9,10 +9,12 @@ public class Player extends GameObject {
     private static final int START_X = 100, START_Y = 100;
     private static final int WIDTH = 40, HEIGHT = 50;
 
-    private static final int MAX_VELOCITY_AIR_X = 20;
-    private static final int MAX_VELOCITY_AIR_Y = 10;
-    private static final int MAX_VELOCITY_X = 10;
-    private static final int MAX_VELOCITY_Y = 10;
+    private static final double FRICTION = .99;
+
+    private static final double MAX_VELOCITY_AIR_X = 20;
+    private static final double MAX_VELOCITY_AIR_Y = 100;
+    private static final double MAX_VELOCITY_X = 10;
+    private static final double MAX_VELOCITY_Y = 1;
 
     private boolean isInAir = true;
 
@@ -33,15 +35,16 @@ public class Player extends GameObject {
 
     public void handleInput(ArrayList<String> input) {
         if (input.contains("LEFT")) {
-            addVelocity(-1, 0);
+            addVelocity(-1.1, 0);
         } else if (input.contains("RIGHT")) {
-            addVelocity(1, 0);
+            addVelocity(1.1, 0);
         } else if (input.contains("DOWN")) {
             addVelocity(0, 1);
         } else if (input.contains("UP")) {
             addVelocity(0, -1);
         }
 
+        printVelocity();
         if (isInAir) {
             if (getVelocityX() > MAX_VELOCITY_AIR_X) {
                 setVelocity(Math.min(getVelocityX(), MAX_VELOCITY_AIR_X), getVelocityY());
@@ -89,8 +92,9 @@ public class Player extends GameObject {
 
     @Override
     public void update(double t) {
-//        addVelocity(0, .05);
+//        addVelocity(0, .005);
         double d = getY() + t * getVelocityY();
+        degradeVelocityX();
         setY(d);
     }
 
@@ -108,5 +112,13 @@ public class Player extends GameObject {
 
     public void setInAir(boolean isInAir) {
         this.isInAir = isInAir;
+    }
+
+    public void degradeVelocityX() {
+//        if (Math.abs(getVelocityX()) < .2) {
+//            setVelocity(0, getVelocityY());
+//        } else {
+//            setVelocity(getVelocityX() * FRICTION, getVelocityY());
+//        }
     }
 }

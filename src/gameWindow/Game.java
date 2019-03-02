@@ -2,11 +2,15 @@ package gameWindow;
 
 import java.util.ArrayList;
 
+<<<<<<< HEAD
+=======
 import terrain.Generator;
+>>>>>>> branch 'master' of https://github.com/CarsonMBrown/stacshack-v.git
 import gameObjects.Block;
 import gameObjects.GameObject;
 import gameObjects.Player;
 import javafx.scene.canvas.GraphicsContext;
+import terrain.Generator;
 
 public class Game {
 
@@ -18,11 +22,11 @@ public class Game {
     private static final double SCORE_MULTIPLIER = 1.0 / 2000;
 
     public Game() {
+        blocks = new ArrayList<>();
+        blocks.add(new Block(100, 300));
         objects = new ArrayList<>();
         player = new Player();
-        blocks = new ArrayList<>();
 
-        blocks.add(new Block(100, 300));
     }
 
     public ArrayList<Block> getBlocks() {
@@ -48,8 +52,13 @@ public class Game {
             o.update(t);
             // Once an object touches lava, it gets deleted.
             // If player deleted, game ends.
-            
+
         }
+<<<<<<< HEAD
+//        if (countBlocks(t)) {
+//            Generator.addCol(this, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+//        }
+=======
         if (countBlocks(t)) {
             Generator.addCol(this, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
         }
@@ -58,6 +67,7 @@ public class Game {
         	b.setVelocity(-player.getVelocityX(), 0);
         	b.update(t);
         }
+>>>>>>> branch 'master' of https://github.com/CarsonMBrown/stacshack-v.git
         player.update(t);
     }
 
@@ -70,14 +80,13 @@ public class Game {
     }
 
     public void renderGame(GraphicsContext gc, double t) {
-        gc.fillRect(player.getX(), player.getY(), player.getWidth(), player.getHeight());
         player.render(gc);
         player.animate(t);
         for (GameObject o : objects) {
             System.out.println("AAAAA");
             o.render(gc);
         }
-        gc.fillText(Long.toString(Math.round((player.getDistanceTraveled() * SCORE_MULTIPLIER))), 100, 100);
+        gc.fillText("Score: " + Math.round((player.getDistanceTraveled() * SCORE_MULTIPLIER)), 850, 30);
         for (Block b : blocks) {
             b.render(gc);
         }
@@ -92,7 +101,6 @@ public class Game {
         ArrayList<GameObject> collidedObjects = new ArrayList<GameObject>();
         for (GameObject o : blocks) {
             if (o.intersects(player)) {
-                System.out.println("Collision");
                 collidedObjects.add(o);
             }
         }
