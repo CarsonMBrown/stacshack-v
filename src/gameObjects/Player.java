@@ -6,7 +6,12 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 
-public class Player {
+public class Player extends GameObject {
+	public Player(int x, int y, int width, int height, String imgPath) {
+		super(x, y, width, height, imgPath);
+		// TODO Auto-generated constructor stub
+	}
+
 	public void handleInput(String keyCode) {
 		
 	}
@@ -19,10 +24,5 @@ public class Player {
 		if (input.contains("RIGHT")) {
 			//Increase right velocity vector
 		}
-	}
-
-	
-	
-	
-	
+	}	
 }
