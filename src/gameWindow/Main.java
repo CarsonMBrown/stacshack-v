@@ -1,12 +1,16 @@
 package gameWindow;
 
+import java.util.ArrayList;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -33,13 +37,53 @@ public class Main extends Application {
         gc.setLineWidth(2);
         Font timesNewRoman = Font.font("Times New Roman", FontWeight.BOLD, 48);
 
+        //Time program was started at
         final long startNanoTime = System.nanoTime();
+        
+        ArrayList<String> input = new ArrayList<>();
+        
         
         new AnimationTimer() {
         	public void handle(long currentNanoTime) {
+        		//Time to base everything on.
         		 double t = (currentNanoTime - startNanoTime) / 1000000000.0;
         		 
+        		 //Clears canvas
+        		 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        		 
+        		 
         		 //TODO add game logic here!
+        		 //These add/remove pressed buttons from the input list.
+        		 scene.setOnKeyPressed(
+        				 new EventHandler<KeyEvent>() {
+        					 public void handle(KeyEvent e) {
+        						 String code = e.getCode().toString();
+        						 
+        						 //Only add pressed button once
+        						 if (!input.contains(code)) {
+        							 input.add(code);
+        						 }
+        					 }
+        				 }
+        				 );
+        		 scene.setOnKeyReleased(
+        		            new EventHandler<KeyEvent>()
+        		            {
+        		                public void handle(KeyEvent e)
+        		                {
+        		                    String code = e.getCode().toString();
+        		                    input.remove( code );
+        		                }
+        		            }
+        		            );
+        		 
+        		 
+        		 
+        		 
+        		 
+        		 
+        		 //TODO Draw everything here!
+        		 
         	}
         }.start();
         
