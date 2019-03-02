@@ -2,10 +2,7 @@ package gameWindow;
 
 import java.util.ArrayList;
 
-<<<<<<< HEAD
-=======
-import terrain.Generator;
->>>>>>> branch 'master' of https://github.com/CarsonMBrown/stacshack-v.git
+//github.com/CarsonMBrown/stacshack-v.git
 import gameObjects.Block;
 import gameObjects.GameObject;
 import gameObjects.Player;
@@ -51,20 +48,14 @@ public class Game {
             // If player deleted, game ends.
 
         }
-<<<<<<< HEAD
-//        if (countBlocks(t)) {
-//            Generator.addCol(this, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
-//        }
-=======
         if (countBlocks(t)) {
             Generator.addCol(this, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
         }
-        
+
         for (Block b : blocks) {
-        	b.setVelocity(-player.getVelocityX(), 0);
-        	b.update(t);
+            b.setVelocity(-player.getVelocityX(), 0);
+            b.update(t);
         }
->>>>>>> branch 'master' of https://github.com/CarsonMBrown/stacshack-v.git
         player.update(t);
     }
 
