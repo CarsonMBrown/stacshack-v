@@ -51,6 +51,11 @@ public class Game {
         if (countBlocks(t)) {
             Generator.addCol(this, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
         }
+        
+        for (Block b : blocks) {
+        	b.setVelocity(-player.getVelocityX(), player.getVelocityY());
+        	b.update(t);
+        }
         player.update(t);
     }
 
