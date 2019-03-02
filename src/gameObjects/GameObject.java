@@ -59,4 +59,12 @@ public abstract class GameObject {
     public int getVelocityY() {
         return (int) vY;
     }
+
+    public int getX() {
+        return (int) x;
+    }
+
+    public int getY() {
+        return (int) y;
+    }
 }

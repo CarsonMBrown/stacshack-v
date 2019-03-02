@@ -1,6 +1,6 @@
 package gameObjects;
 
-import Terrain.Generator;
+import terrain.Generator;
 
 public class Block extends GameObject {
 	public Block(int x, int y) {

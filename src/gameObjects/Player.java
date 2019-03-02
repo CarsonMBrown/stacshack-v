@@ -11,7 +11,9 @@ public class Player extends GameObject {
     private static final int MAX_VELOCITY_X = 20;
     private static final int MAX_VELOCITY_Y = 20;
 
-    boolean isInAir = true;
+    private boolean isInAir = true;
+
+    private double distanceTraveled = 0;
 
     private HashMap<String, Image> images = new HashMap<String, Image>();
 //    private String currentImage = "idle";
@@ -37,8 +39,6 @@ public class Player extends GameObject {
             addVelocity(0, 1);
         }
 
-        System.out.println(getVelocityX() + " | " + getVelocityY());
-
         if (isInAir) {
             if (getVelocityX() > 18) {
                 setVelocity(Math.min(getVelocityX(), MAX_VELOCITY_AIR_X), getVelocityY());
@@ -57,6 +57,7 @@ public class Player extends GameObject {
                 setVelocity(Math.max(getVelocityX(), -MAX_VELOCITY_X), 0);
             }
         }
+        distanceTraveled += Math.sqrt(Math.pow(getVelocityX(), 2) + Math.pow(getVelocityY(), 2));
     }
 
     public void animate(double t) {
@@ -85,6 +86,10 @@ public class Player extends GameObject {
 
     @Override
     public void update(double t) {
-//        addVelocity(0, .5);
+        addVelocity(0, .1);
+    }
+
+    public double getDistanceTraveled() {
+        return distanceTraveled;
     }
 }

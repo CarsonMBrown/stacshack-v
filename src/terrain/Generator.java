@@ -1,4 +1,4 @@
-package Terrain;
+package terrain;
 
 import gameObjects.Block;
 import gameWindow.Game;

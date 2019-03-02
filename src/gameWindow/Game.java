@@ -10,6 +10,8 @@ public class Game {
 
     private ArrayList<GameObject> objects;
     private Player player;
+    private int score = 0;
+    private static final double SCORE_MULTIPLIER = 1.0 / 2000;
 
     public Game() {
         objects = new ArrayList<>();
@@ -42,6 +44,7 @@ public class Game {
         for (GameObject o : objects) {
             o.render(gc);
         }
+        gc.fillText(Long.toString(Math.round((player.getDistanceTraveled() * SCORE_MULTIPLIER))), 100, 100);
     }
 
     public Player getPlayer() {
