@@ -52,12 +52,8 @@ public abstract class GameObject {
         this.image = image;
     }
 
-    public int getVelocityX() {
-        return (int) vX;
-    }
-
-    public int getVelocityY() {
-        return (int) vY;
+    public double X() {
+        return vX;
     }
 
     public double getX() {
@@ -74,6 +70,14 @@ public abstract class GameObject {
 
     public void setY(double y) {
         this.y = y;
+    }
+
+    public double getVelocityX() {
+        return vX;
+    }
+
+    public double getVelocityY() {
+        return vY;
     }
 
     public double getWidth() {
