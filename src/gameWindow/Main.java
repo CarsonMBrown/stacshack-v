@@ -17,11 +17,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage theStage) throws Exception {
-        theStage.setTitle("Canvas Example");
+        theStage.setTitle("Cave Adventure");
 
         Group root = new Group();
-        Scene theScene = new Scene(root);
-        theStage.setScene(theScene);
+        Scene scene = new Scene(root);
+        theStage.setScene(scene);
 
         Canvas canvas = new Canvas(1000, 1000);
         root.getChildren().add(canvas);
@@ -31,12 +31,8 @@ public class Main extends Application {
         gc.setFill(Color.RED);
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(2);
-        Font theFont = Font.font("Times New Roman", FontWeight.BOLD, 48);
-        gc.setFont(theFont);
-        gc.fillText("Hello, World!", 60, 50);
-        gc.strokeText("Hello, World!", 60, 50);
+        Font timesNewRoman = Font.font("Times New Roman", FontWeight.BOLD, 48);
 
-        Image earth = new Image("doot.jpeg");
         final long startNanoTime = System.nanoTime();
         
         new AnimationTimer() {
@@ -46,7 +42,7 @@ public class Main extends Application {
         		 //TODO add game logic here!
         	}
         }.start();
-
+        
         theStage.show();
     }
 
