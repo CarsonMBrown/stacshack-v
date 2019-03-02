@@ -6,6 +6,9 @@ import java.util.HashMap;
 import javafx.scene.image.Image;
 
 public class Player extends GameObject {
+    private static final int START_X = 100, START_Y = 100;
+    private static final int WIDTH = 40, HEIGHT = 50;
+
     private static final int MAX_VELOCITY_AIR_X = 20;
     private static final int MAX_VELOCITY_AIR_Y = 10;
     private static final int MAX_VELOCITY_X = 10;
@@ -19,13 +22,13 @@ public class Player extends GameObject {
 //    private String currentImage = "idle";
 
     public Player() {
-        super(100, 100, 50, 50, "assets/player/idle.png");
+        super(START_X, START_Y, WIDTH, HEIGHT, "assets/player/idle.png");
 
-        images.put("run0", new Image("assets/player/run0.png"));
-        images.put("run1", new Image("assets/player/run1.png"));
-        images.put("fall", new Image("assets/player/fall.png"));
-        images.put("idle", new Image("assets/player/idle.png"));
-        images.put("rise", new Image("assets/player/rise.png"));
+        images.put("run0", new Image("assets/player/run0.png", WIDTH, HEIGHT, false, false));
+        images.put("run1", new Image("assets/player/run1.png", WIDTH, HEIGHT, false, false));
+        images.put("fall", new Image("assets/player/fall.png", WIDTH, HEIGHT, false, false));
+        images.put("idle", new Image("assets/player/idle.png", WIDTH, HEIGHT, false, false));
+        images.put("rise", new Image("assets/player/rise.png", WIDTH, HEIGHT, false, false));
     }
 
     public void handleInput(ArrayList<String> input) {

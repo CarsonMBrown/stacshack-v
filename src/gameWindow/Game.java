@@ -62,6 +62,7 @@ public class Game {
     }
 
     public void renderGame(GraphicsContext gc, double t) {
+        gc.fillRect(player.getX(), player.getY(), player.getWidth(), player.getHeight());
         player.render(gc);
         player.animate(t);
         for (GameObject o : objects) {
@@ -71,8 +72,8 @@ public class Game {
         gc.fillText(Long.toString(Math.round((player.getDistanceTraveled() * SCORE_MULTIPLIER))), 100, 100);
         for (Block b : blocks) {
             b.render(gc);
-            gc.fillRect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
         }
+
     }
 
     public Player getPlayer() {
