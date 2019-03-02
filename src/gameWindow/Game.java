@@ -13,7 +13,7 @@ public class Game {
     private ArrayList<GameObject> objects;
     private Player player;
     private ArrayList<Block> blocks;
-    private static int displacement;
+    private static int updateCycle;
     private int score = 0;
     private static final double SCORE_MULTIPLIER = 1.0 / 2000;
 
@@ -25,6 +25,10 @@ public class Game {
         blocks.add(new Block(100, 300));
     }
 
+    public ArrayList<Block> getBlocks() {
+    	return blocks;
+    }
+    
     // Called in updateScreen
     public void updatePosition(ArrayList<String> input) {
         player.handleInput(input);
@@ -32,12 +36,11 @@ public class Game {
     }
 
     public boolean countBlocks(double t) {
-        displacement += player.getVelocityX() * t;
-        if (displacement >= Generator.BLOCK_SIZE) {
-            displacement = 0;
-            return true;
-        }
-        return false;
+    	updateCycle++;
+    	if (updateCycle % 7 == 0) {
+    		return true;
+    	}
+    	return false;
     }
 
     public void updateScreen(double t) {
