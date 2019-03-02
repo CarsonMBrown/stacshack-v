@@ -44,7 +44,7 @@ public class Player extends GameObject {
             addVelocity(0, -1);
         }
 
-        printVelocity();
+//        printVelocity();
         if (isInAir) {
             if (getVelocityX() > MAX_VELOCITY_AIR_X) {
                 setVelocity(Math.min(getVelocityX(), MAX_VELOCITY_AIR_X), getVelocityY());
@@ -93,6 +93,7 @@ public class Player extends GameObject {
     @Override
     public void update(double t) {
 //        addVelocity(0, .005);
+        
         double d = getY() + t * getVelocityY();
         degradeVelocityX();
         setY(d);
@@ -115,10 +116,10 @@ public class Player extends GameObject {
     }
 
     public void degradeVelocityX() {
-//        if (Math.abs(getVelocityX()) < .2) {
-//            setVelocity(0, getVelocityY());
-//        } else {
-//            setVelocity(getVelocityX() * FRICTION, getVelocityY());
-//        }
+        if (Math.abs(getVelocityX()) < .2) {
+            setVelocity(0, getVelocityY());
+        } else {
+            setVelocity(getVelocityX() * FRICTION, getVelocityY());
+        }
     }
 }

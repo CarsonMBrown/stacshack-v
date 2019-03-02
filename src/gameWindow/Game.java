@@ -2,7 +2,6 @@ package gameWindow;
 
 import java.util.ArrayList;
 
-import terrain.Generator;
 import gameObjects.Block;
 import gameObjects.GameObject;
 import gameObjects.Player;
@@ -27,9 +26,9 @@ public class Game {
     }
 
     public ArrayList<Block> getBlocks() {
-    	return blocks;
+        return blocks;
     }
-    
+
     // Called in updateScreen
     public void updatePosition(ArrayList<String> input) {
         player.handleInput(input);
@@ -37,11 +36,11 @@ public class Game {
     }
 
     public boolean countBlocks(double t) {
-    	updateCycle++;
-    	if (updateCycle % 7 == 0) {
-    		return true;
-    	}
-    	return false;
+        updateCycle++;
+        if (updateCycle % 7 == 0) {
+            return true;
+        }
+        return false;
     }
 
     public void updateScreen(double t) {
@@ -51,16 +50,13 @@ public class Game {
             // If player deleted, game ends.
 
         }
-//        if (countBlocks(t)) {
-//            Generator.addCol(this, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
-//        }
         if (countBlocks(t)) {
             Generator.addCol(this, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
         }
-        
+
         for (Block b : blocks) {
-        	b.setVelocity(-player.getVelocityX(), 0);
-        	b.update(t);
+            b.setVelocity(-player.getVelocityX(), 0);
+            b.update(t);
         }
         player.update(t);
     }
@@ -82,7 +78,9 @@ public class Game {
         }
         gc.fillText("Score: " + Math.round((player.getDistanceTraveled() * SCORE_MULTIPLIER)), 850, 30);
         for (Block b : blocks) {
-            b.render(gc);
+            if (b.getX() > -b.getWidth()) {
+                b.render(gc);
+            }
         }
 
     }
