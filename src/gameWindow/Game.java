@@ -46,9 +46,10 @@ public class Game {
             o.update(t);
             // Once an object touches lava, it gets deleted.
             // If player deleted, game ends.
-            if (countBlocks(t)) {
-                Generator.addCol(this, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
-            }
+            
+        }
+        if (countBlocks(t)) {
+            Generator.addCol(this, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
         }
         player.update(t);
     }
