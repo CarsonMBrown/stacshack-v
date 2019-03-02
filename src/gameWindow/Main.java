@@ -44,7 +44,7 @@ public class Main extends Application {
         
         
         // These add/remove pressed buttons from the input list.
-        scene.setOnKeyTyped(new EventHandler<KeyEvent>() {
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent e) {
                 String code = e.getCode().toString();
