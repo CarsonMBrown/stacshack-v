@@ -39,8 +39,8 @@ public abstract class GameObject {
         return new Rectangle2D(x, y, width, height);
     }
 
-    public boolean intersects(GameObject s) {
-        return s.getBoundary().intersects(this.getBoundary());
+    public boolean intersects(GameObject o) {
+        return o.getBoundary().intersects(this.getBoundary());
     }
 
     public void setImage(String imgPath) {
@@ -60,26 +60,28 @@ public abstract class GameObject {
         return (int) vY;
     }
 
-    public int getX() {
-        return (int) x;
+    public double getX() {
+        return x;
     }
 
-    public int getY() {
-        return (int) y;
+    public double getY() {
+        return y;
     }
 
-    /**
-     * @param x the x to set
-     */
     public void setX(double x) {
         this.x = x;
     }
 
-    /**
-     * @param y the y to set
-     */
     public void setY(double y) {
         this.y = y;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public double getHeight() {
+        return height;
     }
 
 }

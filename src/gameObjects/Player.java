@@ -7,9 +7,9 @@ import javafx.scene.image.Image;
 
 public class Player extends GameObject {
     private static final int MAX_VELOCITY_AIR_X = 20;
-    private static final int MAX_VELOCITY_AIR_Y = 5;
-    private static final int MAX_VELOCITY_X = 20;
-    private static final int MAX_VELOCITY_Y = 5;
+    private static final int MAX_VELOCITY_AIR_Y = 10;
+    private static final int MAX_VELOCITY_X = 10;
+    private static final int MAX_VELOCITY_Y = 10;
 
     private boolean isInAir = true;
 
@@ -40,20 +40,20 @@ public class Player extends GameObject {
         }
 
         if (isInAir) {
-            if (getVelocityX() > 18) {
+            if (getVelocityX() > MAX_VELOCITY_AIR_X) {
                 setVelocity(Math.min(getVelocityX(), MAX_VELOCITY_AIR_X), getVelocityY());
-            } else if (getVelocityX() < -18) {
+            } else if (getVelocityX() < -MAX_VELOCITY_AIR_X) {
                 setVelocity(Math.max(getVelocityX(), -MAX_VELOCITY_AIR_X), getVelocityY());
             }
-            if (getVelocityY() > 18) {
+            if (getVelocityY() > MAX_VELOCITY_AIR_Y) {
                 setVelocity(getVelocityX(), Math.min(getVelocityY(), MAX_VELOCITY_AIR_Y));
-            } else if (getVelocityX() < -18) {
+            } else if (getVelocityY() < -MAX_VELOCITY_AIR_Y) {
                 setVelocity(getVelocityX(), Math.max(getVelocityY(), -MAX_VELOCITY_AIR_Y));
             }
         } else {
-            if (getVelocityX() > 9) {
+            if (getVelocityX() > MAX_VELOCITY_X) {
                 setVelocity(Math.min(getVelocityX(), MAX_VELOCITY_X), 0);
-            } else if (getVelocityY() < -9) {
+            } else if (getVelocityY() < -MAX_VELOCITY_X) {
                 setVelocity(Math.max(getVelocityX(), -MAX_VELOCITY_X), 0);
             }
         }
@@ -86,8 +86,9 @@ public class Player extends GameObject {
 
     @Override
     public void update(double t) {
-        addVelocity(0, .05);
-        setY(getY() + t * getVelocityY());
+//        addVelocity(0, .05);
+        double d = getY() + t * getVelocityY();
+        setY(d);
     }
 
     public double getDistanceTraveled() {
@@ -96,5 +97,13 @@ public class Player extends GameObject {
 
     public void printVelocity() {
         System.out.println(getVelocityX() + " | " + getVelocityY());
+    }
+
+    public boolean isInAir() {
+        return isInAir;
+    }
+
+    public void setInAir(boolean isInAir) {
+        this.isInAir = isInAir;
     }
 }
