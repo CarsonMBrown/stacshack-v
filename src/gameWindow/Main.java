@@ -52,7 +52,7 @@ public class Main extends Application {
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
                 br.moveBackGround(3);
-                br.drawBackGround(gc);
+                
 
                 // TODO add game logic here!
                 // These add/remove pressed buttons from the input list.
@@ -76,7 +76,7 @@ public class Main extends Application {
                 });
 
                 // TODO Draw everything here!
-
+                br.drawBackGround(gc);
             }
         }.start();
 
