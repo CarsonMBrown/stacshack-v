@@ -1,9 +1,10 @@
-package sample;
+package gameWindow;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -12,8 +13,10 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 500, 300));
         primaryStage.show();
+
+        Canvas canvas = new Canvas(500, 300);
     }
 
     public static void main(String[] args) {
