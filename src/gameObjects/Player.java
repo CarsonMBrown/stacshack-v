@@ -22,11 +22,19 @@ public class Player {
 			//Increase right velocity vector
 		}
 	}
-
+	private int x;
+	private int y;
+	
+	
+	
 	public int getX() {
 		return x;
 	}
-
+	private int x;
+	private int y;
+	
+	
+	
 	public void setX(int x) {
 		this.x = x;
 	}
