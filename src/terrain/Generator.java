@@ -8,14 +8,14 @@ public class Generator {
 	private static int colNumber = 0;
 	
 	
-	public void addCol(Game g, int height, int width) {
+	public static void addCol(Game g, int height, int width) {
 		int blockHeight = (int) Math.ceil(height/BLOCK_SIZE);
-		int blockGap = (int) (Math.random() * 2 + 2);
+		int blockGap = 6;
 		int mp = (int)(blockHeight * Math.sin(colNumber * Math.PI / 10));
 		//The ceiling height in blocks
 		for (int i = 0; i < blockHeight; i++) {
 			if (i != Math.abs(mp - blockGap)) {
-				g.addObject(new Block(colNumber * 10, i * BLOCK_SIZE));
+				g.addBlock(new Block(width + 600, i * BLOCK_SIZE));
 			}
 		}
 		colNumber++;

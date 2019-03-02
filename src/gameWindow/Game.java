@@ -33,9 +33,8 @@ public class Game {
 
     public boolean countBlocks(double t) {
         displacement += player.getVelocityX() * t;
-        System.out.println(displacement);
         if (displacement >= Generator.BLOCK_SIZE) {
-            displacement -= Generator.BLOCK_SIZE;
+            displacement = 0;
             return true;
         }
         return false;
@@ -53,7 +52,7 @@ public class Game {
         }
         
         for (Block b : blocks) {
-        	b.setVelocity(-player.getVelocityX(), player.getVelocityY());
+        	b.setVelocity(-player.getVelocityX(), 0);
         	b.update(t);
         }
         player.update(t);
