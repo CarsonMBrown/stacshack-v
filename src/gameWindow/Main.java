@@ -43,12 +43,35 @@ public class Main extends Application {
 
         Game game = new Game();
         
+        
+        // These add/remove pressed buttons from the input list.
+        scene.setOnKeyTyped(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent e) {
+                String code = e.getCode().toString();
+
+                // Only add pressed button once
+                if (!input.contains(code)) {
+                    input.add(code);
+                }
+            }
+        });
+        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent e) {
+                String code = e.getCode().toString();
+                input.remove(code);
+            }
+        });
+        
         new AnimationTimer() {
             @Override
             public void handle(long currentNanoTime) {
                 // Time to base everything on.
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;
-
+                for (String i : input) {
+                	System.out.println(i);
+                }
                 // Clears canvas
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
@@ -56,25 +79,7 @@ public class Main extends Application {
                 
 
                 // TODO add game logic here!
-                // These add/remove pressed buttons from the input list.
-                scene.setOnKeyTyped(new EventHandler<KeyEvent>() {
-                    @Override
-                    public void handle(KeyEvent e) {
-                        String code = e.getCode().toString();
-
-                        // Only add pressed button once
-                        if (!input.contains(code)) {
-                            input.add(code);
-                        }
-                    }
-                });
-                scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
-                    @Override
-                    public void handle(KeyEvent e) {
-                        String code = e.getCode().toString();
-                        input.remove(code);
-                    }
-                });
+                
                 
                 //Handles input vector changing
                 game.updatePosition(input);
