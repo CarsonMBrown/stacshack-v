@@ -77,9 +77,12 @@ public class Game {
             o.render(gc);
         }
         gc.fillText("Score: " + Math.round((player.getDistanceTraveled() * SCORE_MULTIPLIER)), 850, 30);
-        for (Block b : blocks) {
+        for (int i = blocks.size() - 1; i >= 0; i--) {
+            Block b = blocks.get(i);
             if (b.getX() > -b.getWidth()) {
                 b.render(gc);
+            } else {
+                blocks.remove(i);
             }
         }
 

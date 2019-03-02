@@ -17,6 +17,14 @@ public abstract class GameObject {
         image = new Image(imgPath, width, height, false, false);
     }
 
+    public GameObject(int x, int y, int width, int height, Image img) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        image = img;
+    }
+
     public void update(double t) {
         x += vX * t;
         y += vY * t;
