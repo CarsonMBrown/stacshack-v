@@ -1,5 +1,7 @@
 package gameObjects;
 
+import java.util.ArrayList;
+
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
@@ -11,8 +13,14 @@ public class Player {
 		
 	}
 	
-	private void updatePosition() {
+	private void updatePosition(ArrayList<String> input) {
+		if (input.contains("LEFT")) {
+			//Increase left velocity vector
+		}
 		
+		if (input.contains("RIGHT")) {
+			//Increase right velocity vector
+		}
 	}
 
 	public int getX() {
