@@ -46,9 +46,9 @@ public class Player extends GameObject {
                 setVelocity(Math.max(getVelocityX(), -MAX_VELOCITY_AIR_X), getVelocityY());
             }
             if (getVelocityY() > 18) {
-                setVelocity(getVelocityX(), Math.min(getVelocityY(), MAX_VELOCITY_Y));
+                setVelocity(getVelocityX(), Math.min(getVelocityY(), MAX_VELOCITY_AIR_Y));
             } else if (getVelocityX() < 18) {
-                setVelocity(getVelocityX(), Math.max(getVelocityY(), -MAX_VELOCITY_Y));
+                setVelocity(getVelocityX(), Math.max(getVelocityY(), -MAX_VELOCITY_AIR_Y));
             }
         } else {
             if (getVelocityX() > 9) {
