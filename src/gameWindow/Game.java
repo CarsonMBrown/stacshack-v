@@ -78,7 +78,9 @@ public class Game {
         }
         gc.fillText("Score: " + Math.round((player.getDistanceTraveled() * SCORE_MULTIPLIER)), 850, 30);
         for (Block b : blocks) {
-            b.render(gc);
+            if (b.getX() > -b.getWidth()) {
+                b.render(gc);
+            }
         }
 
     }
