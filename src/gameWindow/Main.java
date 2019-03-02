@@ -34,7 +34,7 @@ public class Main extends Application {
         // Font timesNewRoman = Font.font("Times New Roman", FontWeight.BOLD, 48);
 
         BackgroundRenderer br = new BackgroundRenderer();
-        
+
         // Time program was started at
         final long startNanoTime = System.nanoTime();
 
