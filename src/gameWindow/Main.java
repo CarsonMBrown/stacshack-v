@@ -2,7 +2,6 @@ package gameWindow;
 
 import java.util.ArrayList;
 
-import gameObjects.Player;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -35,8 +34,7 @@ public class Main extends Application {
         // Font timesNewRoman = Font.font("Times New Roman", FontWeight.BOLD, 48);
 
         BackgroundRenderer br = new BackgroundRenderer();
-        Player player = new Player();
-
+        
         // Time program was started at
         final long startNanoTime = System.nanoTime();
 
