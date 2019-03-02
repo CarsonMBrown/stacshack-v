@@ -81,7 +81,7 @@ public class Main extends Application {
 
                 // TODO Draw everything here!
                 br.drawBackGround(gc);
-                game.renderGame(gc);
+                game.renderGame(gc, t);
                 
                 input.clear();
             }
