@@ -1,11 +1,11 @@
 package Terrain;
 
+import gameObjects.Block;
 import gameWindow.Game;
 
 public class Generator {
 	public static final int BLOCK_SIZE = 10;
 	private static int colNumber = 0;
-	private static int x = 0;
 	
 	
 	public void addCol(Game g, int height) {
@@ -16,9 +16,9 @@ public class Generator {
 		
 		for (int i = 0; i < blockHeight; i++) {
 			if (i != Math.abs(mp - blockGap)) {
-				g.addObject();
+				g.addObject(new Block(colNumber * 10, i * BLOCK_SIZE));
 			}
 		}
-		
+		colNumber++;
 	}
 }
