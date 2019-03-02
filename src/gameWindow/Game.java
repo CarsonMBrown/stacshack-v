@@ -2,7 +2,6 @@ package gameWindow;
 
 import java.util.ArrayList;
 
-//github.com/CarsonMBrown/stacshack-v.git
 import gameObjects.Block;
 import gameObjects.GameObject;
 import gameObjects.Player;
@@ -14,7 +13,7 @@ public class Game {
     private ArrayList<GameObject> objects;
     private Player player;
     private ArrayList<Block> blocks;
-    private static int displacement;
+    private static int updateCycle;
     private int score = 0;
     private static final double SCORE_MULTIPLIER = 1.0 / 2000;
 
@@ -26,6 +25,10 @@ public class Game {
 
     }
 
+    public ArrayList<Block> getBlocks() {
+        return blocks;
+    }
+
     // Called in updateScreen
     public void updatePosition(ArrayList<String> input) {
         player.handleInput(input);
@@ -33,9 +36,8 @@ public class Game {
     }
 
     public boolean countBlocks(double t) {
-        displacement += player.getVelocityX() * t;
-        if (displacement >= Generator.BLOCK_SIZE) {
-            displacement = 0;
+        updateCycle++;
+        if (updateCycle % 7 == 0) {
             return true;
         }
         return false;
