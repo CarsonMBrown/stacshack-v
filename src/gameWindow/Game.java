@@ -2,7 +2,7 @@ package gameWindow;
 
 import java.util.ArrayList;
 
-import Terrain.Generator;
+import terrain.Generator;
 import gameObjects.Block;
 import gameObjects.GameObject;
 import gameObjects.Player;

@@ -8,7 +8,7 @@ public class Generator {
 	private static int colNumber = 0;
 	
 	
-	public void addCol(Game g, int height) {
+	public void addCol(Game g, int height, int width) {
 		int blockHeight = (int) Math.ceil(height/BLOCK_SIZE);
 		int blockGap = (int) (Math.random() * 2 + 2);
 		int mp = (int)(blockHeight * Math.sin(colNumber * Math.PI / 10));
