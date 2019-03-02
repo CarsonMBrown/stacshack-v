@@ -47,6 +47,7 @@ public abstract class GameObject {
         this.image = new Image(imgPath);
         this.imagePath = imgPath;
     }
+
     public void setImage(Image image) {
         this.image = image;
     }

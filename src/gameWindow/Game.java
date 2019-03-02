@@ -19,7 +19,7 @@ public class Game {
     // Called in updateScreen
     public void updatePosition(ArrayList<String> input) {
         player.handleInput(input);
-        
+
     }
 
     public void updateScreen(double t) {
@@ -29,6 +29,7 @@ public class Game {
             // If player deleted, game ends.
 
         }
+        player.update(t);
     }
 
     public void addObject(GameObject o) {

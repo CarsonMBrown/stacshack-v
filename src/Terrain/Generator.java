@@ -1,7 +1,6 @@
 package Terrain;
 
 import gameWindow.Game;
-import javafx.scene.canvas.GraphicsContext;
 
 public class Generator {
 	public static final int BLOCK_SIZE = 10;
