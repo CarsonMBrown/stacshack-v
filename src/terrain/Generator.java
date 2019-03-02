@@ -9,11 +9,10 @@ public class Generator {
 	
 	
 	public void addCol(Game g, int height) {
-		int mp = (int)(Math.sin(colNumber * Math.PI) + Math.random() * 0.2);
-		//The ceiling height in blocks
 		int blockHeight = (int) Math.ceil(height/BLOCK_SIZE);
 		int blockGap = (int) (Math.random() * 2 + 2);
-		
+		int mp = (int)(blockHeight * Math.sin(colNumber * Math.PI / 10));
+		//The ceiling height in blocks
 		for (int i = 0; i < blockHeight; i++) {
 			if (i != Math.abs(mp - blockGap)) {
 				g.addObject(new Block(colNumber * 10, i * BLOCK_SIZE));
