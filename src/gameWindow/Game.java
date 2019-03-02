@@ -2,18 +2,24 @@ package gameWindow;
 
 import java.util.ArrayList;
 
+import Terrain.Generator;
+import gameObjects.Block;
 import gameObjects.GameObject;
 import gameObjects.Player;
+import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Game {
 
     private ArrayList<GameObject> objects;
     private Player player;
+    private ArrayList<Block> blocks;
+    private static int displacement;
 
     public Game() {
         objects = new ArrayList<>();
         player = new Player();
+        blocks = new ArrayList<>();
     }
 
     // Called in updateScreen
@@ -22,24 +28,47 @@ public class Game {
         
     }
 
+    
+    public boolean countBlocks(double t) {
+    	displacement += player.getVelocityX() * t;
+    	System.out.println(displacement);
+    	if (displacement >= Generator.BLOCK_SIZE) {
+    		displacement -= Generator.BLOCK_SIZE;
+    		return true;
+    	}
+    	return false;
+    }
+    
     public void updateScreen(double t) {
         for (GameObject o : objects) {
             o.update(t);
             // Once an object touches lava, it gets deleted.
             // If player deleted, game ends.
-
+            if (countBlocks(t)) {
+            	Generator.addCol(this, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+            }
         }
+        
     }
 
     public void addObject(GameObject o) {
         objects.add(o);
     }
+    
+    public void addBlock(Block b) {
+    	blocks.add(b);
+    }
+    
+    
 
     public void renderGame(GraphicsContext gc, double t) {
         player.render(gc);
         player.animate(t);
         for (GameObject o : objects) {
             o.render(gc);
+        }
+        for (Block b : blocks) {
+        	b.render(gc);
         }
     }
 
