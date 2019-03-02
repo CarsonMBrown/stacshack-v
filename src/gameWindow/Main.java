@@ -2,7 +2,6 @@ package gameWindow;
 
 import java.util.ArrayList;
 
-import gameObjects.Player;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
