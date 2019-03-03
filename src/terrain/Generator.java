@@ -5,7 +5,7 @@ import gameWindow.Game;
 import gameWindow.Main;
 
 public class Generator {
-	public static final int BLOCK_SIZE = 30;
+	public static final int BLOCK_SIZE = 15;
 	private static int colNumber = 0;
 
 	public static void addCol(Game g, int height, int width) {
@@ -19,7 +19,7 @@ public class Generator {
 		double lastBlockX = g.getBlocks().get(g.getBlocks().size() - 1).getX();
 		int blocksInCol = (int) Math.ceil(height / BLOCK_SIZE);
 		int midBlock = (int) ((blocksInCol / 16) * Math.sin(colNumber * Math.PI / 50) + (blocksInCol / 4));
-		int gap = 5;
+		int gap = 10;
 		int randomness = 2;
 
 		for (int i = 0; i < blocksInCol; i++) {

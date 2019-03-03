@@ -100,13 +100,14 @@ public class Game {
             int xDif = (int) Math.abs(o.getX() - player.getX());
             int yDif = (int) Math.abs(o.getY() - player.getY());
 
-            if (xDif < yDif && player.getVelocityX()< player.getVelocityY()) {
+            System.out.println(xDif + " / " + yDif);
+            if (xDif < yDif) {
                 // object is left of player
                 if (o.getX() < player.getX()) {
                     while (player.intersects(o)) {
                         for (Block b : blocks) {
                             b.setVelocity(-1, 0);
-                            b.update(.1);
+                            b.update(.0001);
                             b.setVelocity(0, 0);
                         }
                     }
@@ -115,7 +116,7 @@ public class Game {
                     while (player.intersects(o)) {
                         for (Block b : blocks) {
                             b.setVelocity(1, 0);
-                            b.update(.1);
+                            b.update(.0001);
                             b.setVelocity(0, 0);
                         }
                     }
