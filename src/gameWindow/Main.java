@@ -20,6 +20,11 @@ public class Main extends Application {
     public final static int SCREEN_WIDTH = 1000;
     public final static int SCREEN_HEIGHT = 500;
 
+    public static boolean RIGHT_PRESSED = false;
+    public static boolean LEFT_PRESSED = false;
+    public static boolean UP_PRESSED = false;
+    public static boolean DOWN_PRESSED = false;
+
     @Override
     public void start(Stage theStage) throws Exception {
         theStage.setTitle("Cave");
@@ -50,10 +55,35 @@ public class Main extends Application {
             @Override
             public void handle(KeyEvent e) {
                 String code = e.getCode().toString();
-
-                // Only add pressed button once
-                if (!input.contains(code)) {
-                    input.add(code);
+                if (code.equals("RIGHT")) {
+                    RIGHT_PRESSED = true;
+                }
+                if (code.equals("LEFT")) {
+                    LEFT_PRESSED = true;
+                }
+                if (code.equals("UP")) {
+                    UP_PRESSED = true;
+                }
+                if (code.equals("DOWN")) {
+                    DOWN_PRESSED = true;
+                }
+            }
+        });
+        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent e) {
+                String code = e.getCode().toString();
+                if (code.equals("RIGHT")) {
+                    RIGHT_PRESSED = false;
+                }
+                if (code.equals("LEFT")) {
+                    LEFT_PRESSED = false;
+                }
+                if (code.equals("UP")) {
+                    UP_PRESSED = false;
+                }
+                if (code.equals("DOWN")) {
+                    DOWN_PRESSED = false;
                 }
             }
         });
@@ -61,7 +91,6 @@ public class Main extends Application {
             @Override
             public void handle(MouseEvent event) {
                 input.add("Clicked(" + event.getSceneX() + "," + event.getSceneY() + ")");
-                System.out.println(input);
             }
         });
 
@@ -79,18 +108,11 @@ public class Main extends Application {
                     // Clears canvas
                     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-                    br.moveBackGround((int) game.getPlayer().getVelocityX(), t);
-
-                    // TODO add game logic here!
-
-                    // Handles input vector changing
                     game.updatePosition(input);
-                    // Renders
+                    game.calculateCollisions();
                     game.updateScreen(t);
 
-                    game.calculateCollisions();
-
-                    // TODO Draw everything here!
+                    br.moveBackGround((int) game.getPlayer().getVelocityX(), t);
                     br.drawBackGround(gc);
                     game.renderGame(gc, t);
 
