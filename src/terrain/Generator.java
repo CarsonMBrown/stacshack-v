@@ -15,7 +15,6 @@ public class Generator {
 		 * (int)((blockHeight / 4) * Math.sin(colNumber * Math.PI/100)); //The ceiling
 		 * height in blocks
 		 */
-
 		double lastBlockX = g.getBlocks().get(g.getBlocks().size() - 1).getX();
 		int blocksInCol = (int) Math.ceil(height / BLOCK_SIZE);
 		int midBlock = (int) ((blocksInCol / 16) * Math.sin(colNumber * Math.PI / 50) + (blocksInCol / 4));

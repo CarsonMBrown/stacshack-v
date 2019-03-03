@@ -1,18 +1,18 @@
 package gameObjects;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
-import gameWindow.Main;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public class Player extends GameObject {
     private static final int START_X = 100, START_Y = 100;
     private static final int WIDTH = 40, HEIGHT = 50;
 
-    private static final double FRICTION = .99;
+    private static final double FRICTION_X = .99;
+    private static final double FRICTION_Y = .99;
 
-    private static final double MAX_VELOCITY_AIR_X = 20;
+    private static final double MAX_VELOCITY_AIR_X = 100;
     private static final double MAX_VELOCITY_AIR_Y = 100;
     private static final double MAX_VELOCITY_X = 10;
     private static final double MAX_VELOCITY_Y = 1;
@@ -22,6 +22,8 @@ public class Player extends GameObject {
     private double distanceTraveled = 0;
 
     private HashMap<String, Image> images = new HashMap<String, Image>();
+
+    private Block tetheredTo;
 //    private String currentImage = "idle";
 
     public Player() {
@@ -34,18 +36,20 @@ public class Player extends GameObject {
         images.put("rise", new Image("assets/player/rise.png", WIDTH, HEIGHT, false, false));
     }
 
-    public void handleInput(ArrayList<String> input) {
-        if (Main.LEFT_PRESSED) {
-            addVelocity(-1.1, 0);
-        }
-        if (Main.RIGHT_PRESSED) {
-            addVelocity(1.1, 0);
-        }
-        if (Main.DOWN_PRESSED) {
-            addVelocity(0, 1);
-        }
-        if (Main.UP_PRESSED) {
-            addVelocity(0, -1);
+    public void handleInput(Block b) {
+        tetheredTo = b;
+    }
+
+    public void handleInput() {
+        if (tetheredTo != null) {
+            double dx = tetheredTo.getX() + tetheredTo.getWidth() / 2 - getX() - getWidth() / 2;
+            double dy = tetheredTo.getY() + tetheredTo.getHeight() / 2 - getY() - getHeight() / 2;
+
+            if (Math.sqrt(dx * dx + dy * dy) > 25) {
+                addVelocity(dx * .01, dy * .01);
+            } else {
+                setVelocity(0,0);
+            }
         }
 
         if (isInAir) {
@@ -67,7 +71,6 @@ public class Player extends GameObject {
             }
         }
         distanceTraveled += Math.sqrt(Math.pow(getVelocityX(), 2) + Math.pow(getVelocityY(), 2));
-        printVelocity();
     }
 
     public void animate(double t) {
@@ -99,12 +102,13 @@ public class Player extends GameObject {
 
     @Override
     public void update(double t) {
-        if (!isInAir) {
+        if (isInAir) {
             addVelocity(0, .1);
         }
 
-        double d = getY() + t * getVelocityY();
         degradeVelocityX();
+
+        double d = getY() + t * getVelocityY();
         setY(d);
     }
 
@@ -126,9 +130,18 @@ public class Player extends GameObject {
 
     public void degradeVelocityX() {
         if (Math.abs(getVelocityX()) < .2) {
-            setVelocity(0, getVelocityY());
+            setVelocity(0, getVelocityY() * FRICTION_Y);
         } else {
-            setVelocity(getVelocityX() * FRICTION, getVelocityY());
+            setVelocity(getVelocityX() * FRICTION_X, getVelocityY() * FRICTION_Y);
         }
+    }
+
+    @Override
+    public void render(GraphicsContext gc) {
+        if (tetheredTo != null) {
+            gc.strokeLine(getX() + getWidth() / 2, getY() + getHeight() / 2, tetheredTo.getX() + tetheredTo.getWidth() / 2,
+                    tetheredTo.getY() + tetheredTo.getHeight() / 2);
+        }
+        super.render(gc);
     }
 }
