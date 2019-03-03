@@ -6,6 +6,7 @@ import gameObjects.Block;
 import gameObjects.GameObject;
 import gameObjects.Lava;
 import gameObjects.Player;
+import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import terrain.Generator;
 
@@ -24,7 +25,7 @@ public class Game {
         blocks.add(new Block(100, 300));
         objects = new ArrayList<>();
         player = new Player();
-        lava = new Lava();
+//        lava = new Lava();
 
     }
 
@@ -34,7 +35,18 @@ public class Game {
 
     // Called in updateScreen
     public void updatePosition(ArrayList<String> input) {
-        player.handleInput(input);
+        if (input.size() > 0) {
+            String s = input.get(0);
+            double x = Double.parseDouble(s.substring(s.indexOf("(") + 1, s.indexOf(",")));
+            double y = Double.parseDouble(s.substring(s.indexOf(",") + 1, s.indexOf(")")));
+            for (Block b : blocks) {
+                if (b.getBoundary().contains(new Point2D(x, y))) {
+                    player.handleInput(b);
+                }
+            }
+        }
+        player.handleInput();
+        input.clear();
     }
 
     public void updateScreen(double t) {
@@ -47,15 +59,19 @@ public class Game {
         while (blocks.get(blocks.size() - 1).getX() < Main.SCREEN_WIDTH + 1.5 * Generator.BLOCK_SIZE) {
             Generator.addCol(this, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
         }
-        while (blocks.get(0).getX() < lava.getX() + lava.getWidth() * .7) {
-            blocks.remove(blocks.get(0));
+        if (lava != null) {
+            while (blocks.get(0).getX() < lava.getX() + lava.getWidth() * .7) {
+                blocks.remove(blocks.get(0));
+            }
         }
         for (Block b : blocks) {
             b.setVelocity(-player.getVelocityX(), 0);
             b.update(t);
         }
-        lava.setVelocity(-player.getVelocityX() + 1, 0);
-        lava.update(t);
+        if (lava != null) {
+            lava.setVelocity(-player.getVelocityX() + 1, 0);
+            lava.update(t);
+        }
         player.update(t);
     }
 
@@ -80,8 +96,9 @@ public class Game {
                 b.render(gc);
             }
         }
-
-        lava.render(gc);
+        if (lava != null) {
+            lava.render(gc);
+        }
         gc.fillText("Score: " + Math.round((player.getDistanceTraveled() * SCORE_MULTIPLIER)), 850, 30);
     }
 

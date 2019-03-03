@@ -39,6 +39,7 @@ public class Main extends Application {
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         gc.setFill(Color.WHITE);
+        gc.setStroke(Color.WHITE);
         gc.setLineWidth(2);
         Font leto = Font.font("Leto", FontWeight.BOLD, 20);
         gc.setFont(leto);
@@ -93,6 +94,12 @@ public class Main extends Application {
                 input.add("Clicked(" + event.getSceneX() + "," + event.getSceneY() + ")");
             }
         });
+        scene.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                input.clear();
+            }
+        });
 
         Game game = new Game();
 
@@ -115,7 +122,7 @@ public class Main extends Application {
                     br.drawBackGround(gc);
                     game.renderGame(gc, t);
 
-                    input.clear();
+//                    input.clear();
                 }
                 nanoTimeLastFrame = currentNanoTime;
             }
