@@ -38,6 +38,7 @@ public class Player extends GameObject {
 
     public void handleInput(Block b) {
         tetheredTo = b;
+        handleInput();
     }
 
     public void handleInput() {
@@ -45,10 +46,13 @@ public class Player extends GameObject {
             double dx = tetheredTo.getX() + tetheredTo.getWidth() / 2 - getX() - getWidth() / 2;
             double dy = tetheredTo.getY() + tetheredTo.getHeight() / 2 - getY() - getHeight() / 2;
 
-            if (Math.sqrt(dx * dx + dy * dy) > 25) {
-                addVelocity(dx * .01, dy * .01);
+            double angle = Math.atan2(dy, dx);
+            double dist = Math.sqrt((dx - getX()) * (dx - getX()) + (dy - getY()) * (dy - getY()));
+
+            if (Math.sin(-angle) < 1) {
+                addVelocity(dist * 2 * Math.sin(-angle), dist * 2 * Math.cos(-angle));
             } else {
-                setVelocity(0,0);
+                addVelocity(dist * 2 * Math.sin(angle), dist * 2 * Math.cos(-angle));
             }
         }
 

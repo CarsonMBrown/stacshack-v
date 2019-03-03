@@ -37,16 +37,23 @@ public class Game {
     public void updatePosition(ArrayList<String> input) {
         if (input.size() > 0) {
             String s = input.get(0);
-            double x = Double.parseDouble(s.substring(s.indexOf("(") + 1, s.indexOf(",")));
-            double y = Double.parseDouble(s.substring(s.indexOf(",") + 1, s.indexOf(")")));
-            for (Block b : blocks) {
-                if (b.getBoundary().contains(new Point2D(x, y))) {
-                    player.handleInput(b);
+            if (s.contains(",")) {
+                double x = Double.parseDouble(s.substring(s.indexOf("(") + 1, s.indexOf(",")));
+                double y = Double.parseDouble(s.substring(s.indexOf(",") + 1, s.indexOf(")")));
+                input.clear();
+                input.add("Click");
+                for (Block b : blocks) {
+                    if (b.getBoundary().contains(new Point2D(x, y))) {
+                        player.handleInput(b);
+                        return;
+                    }
                 }
+            } else {
+                player.handleInput();
             }
+        } else {
+            player.handleInput(null);
         }
-        player.handleInput();
-        input.clear();
     }
 
     public void updateScreen(double t) {
