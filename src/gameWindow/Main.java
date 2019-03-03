@@ -109,8 +109,8 @@ public class Main extends Application {
                     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
                     game.updatePosition(input);
-                    game.updateScreen(t);
                     game.calculateCollisions();
+                    game.updateScreen(t);
 
                     br.moveBackGround((int) game.getPlayer().getVelocityX(), t);
                     br.drawBackGround(gc);

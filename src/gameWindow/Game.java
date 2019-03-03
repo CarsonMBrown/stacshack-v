@@ -73,7 +73,7 @@ public class Game {
         for (GameObject o : objects) {
             o.render(gc);
         }
-        
+
         for (int i = blocks.size() - 1; i >= 0; i--) {
             Block b = blocks.get(i);
             if (b.getX() > -b.getWidth()) {
@@ -100,13 +100,26 @@ public class Game {
             int xDif = (int) Math.abs(o.getX() - player.getX());
             int yDif = (int) Math.abs(o.getY() - player.getY());
 
-            if (xDif > yDif) {
+            System.out.println(xDif + " / " + yDif);
+            if (xDif < yDif) {
                 // object is left of player
                 if (o.getX() < player.getX()) {
-                    player.setX(o.getX() + o.getWidth());
+                    while (player.intersects(o)) {
+                        for (Block b : blocks) {
+                            b.setVelocity(-1, 0);
+                            b.update(.0001);
+                            b.setVelocity(0, 0);
+                        }
+                    }
                 } // object is right of player
-                else if (o.getX() > player.getX()) {
-                    player.setX(o.getX() - player.getWidth());
+                if (o.getX() > player.getX()) {
+                    while (player.intersects(o)) {
+                        for (Block b : blocks) {
+                            b.setVelocity(1, 0);
+                            b.update(.0001);
+                            b.setVelocity(0, 0);
+                        }
+                    }
                 }
                 player.setVelocity(0, player.getVelocityY());
             } else {
@@ -116,6 +129,7 @@ public class Game {
                 } else if (o.getY() < player.getY()) {
                     player.setY(o.getY() + o.getHeight());
                 }
+                player.setInAir(false);
                 player.setVelocity(player.getVelocityX(), 0);
             }
         }

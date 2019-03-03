@@ -48,7 +48,6 @@ public class Player extends GameObject {
             addVelocity(0, -1);
         }
 
-//        printVelocity();
         if (isInAir) {
             if (getVelocityX() > MAX_VELOCITY_AIR_X) {
                 setVelocity(Math.min(getVelocityX(), MAX_VELOCITY_AIR_X), getVelocityY());
@@ -63,16 +62,16 @@ public class Player extends GameObject {
         } else {
             if (getVelocityX() > MAX_VELOCITY_X) {
                 setVelocity(Math.min(getVelocityX(), MAX_VELOCITY_X), getVelocityY());
-            } else if (getVelocityY() < -MAX_VELOCITY_X) {
+            } else if (getVelocityX() < -MAX_VELOCITY_X) {
                 setVelocity(Math.max(getVelocityX(), -MAX_VELOCITY_X), getVelocityY());
             }
         }
         distanceTraveled += Math.sqrt(Math.pow(getVelocityX(), 2) + Math.pow(getVelocityY(), 2));
+        printVelocity();
     }
 
     public void animate(double t) {
         final double duration = 0.7d / getVelocityX();
-
         if (isInAir) {
             if (getVelocityY() > 0) {
                 setImage(images.get("fall"));
@@ -83,10 +82,10 @@ public class Player extends GameObject {
             if (getVelocityX() == 0) {
                 setImage(images.get("idle"));
             } else {
-                //The Best Code
+                // The Best Code
                 Image[] walkImages = new Image[2];
                 int imageIndex;
-                if (Math.random() * MAX_VELOCITY_X < getVelocityX()) {
+                if (Math.random() * MAX_VELOCITY_X < Math.abs(getVelocityX())) {
                     imageIndex = (int) (Math.random() * 2);
                     setImage(images.get("run" + Math.abs(imageIndex)));
                 }
@@ -100,7 +99,9 @@ public class Player extends GameObject {
 
     @Override
     public void update(double t) {
-        addVelocity(0, .1);
+        if (!isInAir) {
+            addVelocity(0, .1);
+        }
 
         double d = getY() + t * getVelocityY();
         degradeVelocityX();
