@@ -102,9 +102,10 @@ public class Player extends GameObject {
         if (!isInAir) {
             addVelocity(0, .1);
         }
-
-        double d = getY() + t * getVelocityY();
+        
         degradeVelocityX();
+        
+        double d = getY() + t * getVelocityY();
         setY(d);
     }
 

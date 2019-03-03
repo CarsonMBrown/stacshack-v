@@ -104,7 +104,6 @@ public class Main extends Application {
                 if (nanoTimeLastFrame != 0) {
                     // Time to base everything on.
                     double t = (currentNanoTime - nanoTimeLastFrame) / 100000000.0;
-
                     // Clears canvas
                     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
