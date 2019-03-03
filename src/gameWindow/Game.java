@@ -6,6 +6,7 @@ import gameObjects.Block;
 import gameObjects.GameObject;
 import gameObjects.Lava;
 import gameObjects.Player;
+import gameObjects.Spider;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import terrain.Generator;
@@ -19,6 +20,7 @@ public class Game {
     private int score = 0;
     private static final double SCORE_MULTIPLIER = 1.0 / 2000;
     private static Lava lava;
+    private ArrayList<Spider> enemies;
 
     public Game() {
         blocks = new ArrayList<>();
@@ -26,6 +28,8 @@ public class Game {
         objects = new ArrayList<>();
         player = new Player();
 //        lava = new Lava();
+        enemies = new ArrayList<Spider>();
+        
 
     }
 
@@ -74,6 +78,11 @@ public class Game {
         for (Block b : blocks) {
             b.setVelocity(-player.getVelocityX(), 0);
             b.update(t);
+           
+            if ((int) (Math.random() * 1000000) == 8) {
+            	System.out.println("Jorts");
+            	enemies.add(new Spider(1600, (int)b.getY() + 200 + (int)(Math.random() * 20), b));
+            }
         }
         if (lava != null) {
             lava.setVelocity(-player.getVelocityX() + 1, 0);
@@ -82,6 +91,15 @@ public class Game {
         player.update(t);
         if (player.getY() > 500){
             gameOver();
+        }
+        
+        if (enemies.size() > 0) {
+        	for (Spider s : enemies) {
+        		s.update(t);
+        	}
+        }
+        for (Spider s : enemies) {
+        	s.setVelocity(-player.getVelocityX(), 0);
         }
         
         
@@ -117,6 +135,20 @@ public class Game {
             lava.render(gc);
         }
         gc.fillText("Score: " + Math.round((player.getDistanceTraveled() * SCORE_MULTIPLIER)), 850, 30);
+        if (enemies.size() > 0) {
+        	for (Spider s : enemies) {
+        		
+        		double startX = s.getY();
+        		gc.strokeLine(s.getX() + s.getWidth() / 2, s.getY() + s.getHeight() / 2, s.getX() + s.getWidth() / 2, -10);
+        		s.render(gc);
+        	}
+        }
+        
+        for (Spider s : enemies) {
+        	if (s.intersects(player)) {
+        		gameOver(gc);
+        	}
+        }
     }
 
     public Player getPlayer() {
@@ -130,6 +162,8 @@ public class Game {
                 collidedObjects.add(o);
             }
         }
+        
+
         if (collidedObjects.size() > 0) {
 //            player.setVelocity(-player.getVelocityX(), -player.getVelocityY());
             for (GameObject o : collidedObjects) {
