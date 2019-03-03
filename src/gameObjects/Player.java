@@ -3,6 +3,7 @@ package gameObjects;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import gameWindow.Main;
 import javafx.scene.image.Image;
 
 public class Player extends GameObject {
@@ -34,13 +35,16 @@ public class Player extends GameObject {
     }
 
     public void handleInput(ArrayList<String> input) {
-        if (input.contains("LEFT")) {
+        if (Main.LEFT_PRESSED) {
             addVelocity(-1.1, 0);
-        } else if (input.contains("RIGHT")) {
+        }
+        if (Main.RIGHT_PRESSED) {
             addVelocity(1.1, 0);
-        } else if (input.contains("DOWN")) {
+        }
+        if (Main.DOWN_PRESSED) {
             addVelocity(0, 1);
-        } else if (input.contains("UP")) {
+        }
+        if (Main.UP_PRESSED) {
             addVelocity(0, -1);
         }
 
@@ -58,9 +62,9 @@ public class Player extends GameObject {
             }
         } else {
             if (getVelocityX() > MAX_VELOCITY_X) {
-                setVelocity(Math.min(getVelocityX(), MAX_VELOCITY_X), 0);
+                setVelocity(Math.min(getVelocityX(), MAX_VELOCITY_X), getVelocityY());
             } else if (getVelocityY() < -MAX_VELOCITY_X) {
-                setVelocity(Math.max(getVelocityX(), -MAX_VELOCITY_X), 0);
+                setVelocity(Math.max(getVelocityX(), -MAX_VELOCITY_X), getVelocityY());
             }
         }
         distanceTraveled += Math.sqrt(Math.pow(getVelocityX(), 2) + Math.pow(getVelocityY(), 2));
@@ -79,9 +83,13 @@ public class Player extends GameObject {
             if (getVelocityX() == 0) {
                 setImage(images.get("idle"));
             } else {
+                //The Best Code
                 Image[] walkImages = new Image[2];
-                int imageIndex = (int) ((t % (walkImages.length * duration)) / duration);
-                setImage(images.get("run" + Math.abs(imageIndex)));
+                int imageIndex;
+                if (Math.random() * MAX_VELOCITY_X < getVelocityX()) {
+                    imageIndex = (int) (Math.random() * 2);
+                    setImage(images.get("run" + Math.abs(imageIndex)));
+                }
             }
         }
 
@@ -92,8 +100,8 @@ public class Player extends GameObject {
 
     @Override
     public void update(double t) {
-//        addVelocity(0, .005);
-        
+        addVelocity(0, .1);
+
         double d = getY() + t * getVelocityY();
         degradeVelocityX();
         setY(d);
