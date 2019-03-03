@@ -10,6 +10,7 @@ public class Player extends GameObject {
     private static final int WIDTH = 40, HEIGHT = 50;
 
     private static final double FRICTION_X = .99;
+    private static final double FRICTION_AIR_X = .999;
     private static final double FRICTION_Y = .99;
 
     private static final double MAX_VELOCITY_AIR_X = 100;
@@ -49,12 +50,13 @@ public class Player extends GameObject {
             double angle = Math.atan2(dy, dx);
             double dist = Math.sqrt((dx - getX()) * (dx - getX()) + (dy - getY()) * (dy - getY()));
 
-            // TODO fix
-            if (Math.sin(-angle) < 1) {
-                addVelocity(dist * 2 * Math.sin(-angle), dist * 2 * Math.cos(-angle));
-            } else {
-                addVelocity(dist * 2 * Math.sin(angle), dist * 2 * Math.cos(-angle));
+            addVelocity(dist * Math.sin(-angle), dist * Math.cos(-angle));
+            if (dist > 50) {
+                addVelocity(dist * dx / 1000.0, dist * dy / 1000.0);
             }
+//            if (!isInAir) {
+//                addVelocity(dist * dx / 10.0, dist * dy / 10.0);
+//            }
         }
 
         if (isInAir) {
@@ -99,7 +101,6 @@ public class Player extends GameObject {
                 }
             }
         }
-
         if (getVelocityX() == 0 && getVelocityY() == 0) {
             setImage(images.get("idle"));
         }
@@ -107,8 +108,8 @@ public class Player extends GameObject {
 
     @Override
     public void update(double t) {
-        if (isInAir) {
-            addVelocity(0, .1);
+        if (isInAir && tetheredTo == null) {
+            addVelocity(0, .5);
         }
 
         degradeVelocityX();
@@ -137,7 +138,11 @@ public class Player extends GameObject {
         if (Math.abs(getVelocityX()) < .2) {
             setVelocity(0, getVelocityY() * FRICTION_Y);
         } else {
-            setVelocity(getVelocityX() * FRICTION_X, getVelocityY() * FRICTION_Y);
+            if (isInAir) {
+                setVelocity(getVelocityX() * FRICTION_AIR_X, getVelocityY() * FRICTION_Y);
+            } else {
+                setVelocity(getVelocityX() * FRICTION_X, getVelocityY() * FRICTION_Y);
+            }
         }
     }
 

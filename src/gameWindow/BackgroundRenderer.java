@@ -12,7 +12,7 @@ public class BackgroundRenderer {
     public BackgroundRenderer() {
         for (int i = 0; i < 4; i++) {
             backgroundLocationX.add(0.0);
-            backgroundImages.add(new Image("assets/background/background-" + i + ".png", 2500, 500, true, false));
+            backgroundImages.add(new Image("assets/background/background-" + i + ".png", 100000, 500, true, false));
         }
     }
 

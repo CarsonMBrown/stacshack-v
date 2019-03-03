@@ -80,6 +80,16 @@ public class Game {
             lava.update(t);
         }
         player.update(t);
+        if (player.getY() > 500){
+            gameOver();
+        }
+        
+        
+    }
+    
+    private void gameOver() {
+        objects.remove(player);
+        
     }
 
     public void addObject(GameObject o) {
@@ -121,6 +131,32 @@ public class Game {
             }
         }
         if (collidedObjects.size() > 0) {
+//            player.setVelocity(-player.getVelocityX(), -player.getVelocityY());
+            for (GameObject o : collidedObjects) {
+                int xDif = (int) Math.abs(o.getX() - player.getX());
+                int yDif = (int) Math.abs(o.getY() - player.getY());
+
+                player.setY(o.getY() + o.getHeight());
+                player.setVelocity(player.getVelocityX(), 0);
+//
+//                for (GameObject ob : blocks) {
+//                    if (o.getX() > player.getX()) {
+//                        ob.setX(ob.getX() + 5);
+//                    } else {
+//                        ob.setX(ob.getX() - 5);
+//                    }
+//                }
+//                player.setVelocity(player.getVelocityX(), -player.getVelocityY());
+            }
+
+//            player.setInAir(false);
+//            for (GameObject o : collidedObjects) {
+//                if (o.getX() > player.getX()) {
+//                    player.setVelocity(-player.getVelocityX() * .9, player.getVelocityY());
+//                } else {
+//                    player.setVelocity(-player.getVelocityX() * .9, player.getVelocityY());
+//                }
+//            }
             // for (GameObject o : collidedObjects) {
 //            int xDif = (int) Math.abs(o.getX() - player.getX());
 //            int yDif = (int) Math.abs(o.getY() - player.getY());
@@ -157,6 +193,8 @@ public class Game {
 //                player.setVelocity(player.getVelocityX(), 0);
 //            }
             System.out.println("the big dead");
+        } else {
+            player.setInAir(true);
         }
     }
 }
