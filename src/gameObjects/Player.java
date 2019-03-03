@@ -49,6 +49,7 @@ public class Player extends GameObject {
             double angle = Math.atan2(dy, dx);
             double dist = Math.sqrt((dx - getX()) * (dx - getX()) + (dy - getY()) * (dy - getY()));
 
+            // TODO fix
             if (Math.sin(-angle) < 1) {
                 addVelocity(dist * 2 * Math.sin(-angle), dist * 2 * Math.cos(-angle));
             } else {
